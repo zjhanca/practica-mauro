@@ -1,0 +1,9 @@
+{
+  "name": "practica_objetos",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "pedido.js",
+  "scripts": {
+    "start": "node pedido.js"
+  }
+}

@@ -1,4 +1,4 @@
-class Factura{
+class Factura {
     constructor(id, fecha, productos, cliente) {
         this._id = id;
         this._fecha = fecha;
@@ -6,36 +6,32 @@ class Factura{
         this._cliente = cliente;
     }
 
-    get getId(){
-        return this._id;
-    }
+    calcularFactura(tasaIVA) {
+        console.log("Factura #" + this._id);
+        console.log("Fecha:", this._fecha);
+        console.log("Cliente:", this._cliente.getNombre, this._cliente.getApellido);
+        console.log("\nProductos:");
 
-    get getFecha(){
-        return this._fecha;
-    }
+        const precios = this._productos.map(prod => {
+            const precio = parseFloat(prod.getPrecio);
+            console.log(`- ${prod.getNombre}: $${precio.toLocaleString()}`);
+            return precio;
+        });
 
-    get getProductos(){
-        return this._productos;
-    }
+        const cantidadProductos = this._productos.length;
 
-    get getCliente(){
-        return this._cliente;
-    }
+        const subtotal = precios.reduce((acc, precio) => acc + precio, 0);
 
-    set setId(numero){
-        this._id = numero;
-    }
+        const impuesto = subtotal * (tasaIVA / 100);
+        const total = subtotal + impuesto;
 
-    set setNombre(fecha){
-        this._fecha = fecha;
-    }
+        console.log("\n");
+        console.log("Total productos:", cantidadProductos);
+        console.log("Subtotal: $" + subtotal.toLocaleString());
+        console.log("IVA (" + tasaIVA + "%): $" + impuesto.toLocaleString());
+        console.log("TOTAL: $" + total.toLocaleString());
 
-    set setProductos(productos){
-        this._productos = productos;
-    }
-
-    set setCliente(cliente){
-        this._cliente = cliente;
+        return { cantidadProductos, subtotal, impuesto, total };
     }
 }
 
